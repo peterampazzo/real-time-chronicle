@@ -1,33 +1,22 @@
 # ---------------------------------------------------------------------------
-# Cloudflare Pages project (Direct Upload / Wrangler deploy from CI).
-# Git integration is not configured here — deployments come from deploy-on-tag.
+# Worker custom domain — routes news.peterampazzo.com to the Worker service.
+# The Worker itself is deployed by Wrangler in CI (deploy-on-tag workflow).
 # ---------------------------------------------------------------------------
 
-resource "cloudflare_pages_project" "news_reader" {
-  account_id        = var.cloudflare_account_id
-  name              = var.project_name
-  production_branch = var.production_branch
-
-  deployment_configs = {
-    production = {
-      compatibility_date  = var.compatibility_date
-      compatibility_flags = ["nodejs_compat"]
-    }
-
-    preview = {
-      compatibility_date  = var.compatibility_date
-      compatibility_flags = ["nodejs_compat"]
-    }
-  }
+resource "cloudflare_worker_domain" "app" {
+  account_id  = var.cloudflare_account_id
+  zone_id     = var.cloudflare_zone_id
+  hostname    = local.app_domain
+  service     = var.project_name
 }
 
 # ---------------------------------------------------------------------------
-# Zero Trust Access — protect the entire app.
+# Zero Trust Access — protect the entire app on the custom domain.
 # ---------------------------------------------------------------------------
 
-resource "cloudflare_zero_trust_access_application" "fetch_rss" {
+resource "cloudflare_zero_trust_access_application" "app" {
   account_id = var.cloudflare_account_id
-  name       = var.project_name
+  name       = "${var.project_name}-app"
   domain     = local.app_domain
   type       = "self_hosted"
 
@@ -42,5 +31,5 @@ resource "cloudflare_zero_trust_access_application" "fetch_rss" {
     ]
   }]
 
-  depends_on = [cloudflare_pages_project.news_reader]
+  depends_on = [cloudflare_worker_domain.app]
 }
