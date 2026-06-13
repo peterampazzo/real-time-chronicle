@@ -12,7 +12,7 @@ variable "cloudflare_zone_id" {
 variable "project_name" {
   description = "Project name used for resource naming."
   type        = string
-  default     = "news-reader"
+  default     = "realtime-news"
 }
 
 variable "production_branch" {
