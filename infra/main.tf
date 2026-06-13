@@ -6,10 +6,10 @@
 # ---------------------------------------------------------------------------
 
 resource "cloudflare_zero_trust_access_application" "app" {
-  account_id = var.cloudflare_account_id
-  name       = "${var.project_name}-app"
-  domain     = local.app_domain
-  type       = "self_hosted"
+  zone_id = var.cloudflare_zone_id
+  name    = "${var.project_name}-app"
+  domain  = local.app_domain
+  type    = "self_hosted"
 
   policies = [{
     name       = "Allow authorized email domains"
