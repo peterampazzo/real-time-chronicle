@@ -29,7 +29,7 @@ resource "cloudflare_pages_project" "news_reader" {
 resource "cloudflare_pages_domain" "custom" {
   account_id   = var.cloudflare_account_id
   project_name = cloudflare_pages_project.news_reader.name
-  domain       = local.app_domain
+  name         = local.app_domain
 }
 
 # ---------------------------------------------------------------------------
