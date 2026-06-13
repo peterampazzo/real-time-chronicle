@@ -30,7 +30,7 @@ variable "compatibility_date" {
 variable "app_domain" {
   description = "Production hostname for Access and Pages. Defaults to \"<project_name>.pages.dev\" when null."
   type        = string
-  default     = null
+  default     = "news.peterampazzo.com"
 }
 
 variable "allowed_email_domains" {

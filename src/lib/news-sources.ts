@@ -46,11 +46,18 @@ function mk(
 
 export const SOURCE_CATALOG: SourceConfig[] = [
   // Italian
-  mk("ilpost", "Il Post", "https://www.ilpost.it/feed/", "oklch(0.62 0.18 245)", "italian", "it"),
+  mk(
+    "ilpost",
+    "Il Post",
+    "https://news.google.com/rss/search?q=site:ilpost.it&hl=it&gl=IT&ceid=IT:it",
+    "oklch(0.62 0.18 245)",
+    "italian",
+    "it",
+  ),
   mk(
     "corriere",
     "Corriere",
-    "https://xml2.corriereobjects.it/rss/homepage.xml",
+    "https://news.google.com/rss/search?q=site:corriere.it&hl=it&gl=IT&ceid=IT:it",
     "oklch(0.62 0.22 25)",
     "italian",
     "it",
@@ -127,7 +134,7 @@ export const SOURCE_CATALOG: SourceConfig[] = [
   mk(
     "reuters",
     "Reuters",
-    "https://feeds.reuters.com/reuters/topNews",
+    "https://news.google.com/rss/search?q=reuters&hl=en-US&gl=US&ceid=US:en",
     "oklch(0.7 0.18 60)",
     "international",
     "en",

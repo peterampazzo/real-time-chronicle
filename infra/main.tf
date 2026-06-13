@@ -1,17 +1,8 @@
 # ---------------------------------------------------------------------------
-# Worker custom domain — routes news.peterampazzo.com to the Worker service.
-# The Worker itself is deployed by Wrangler in CI (deploy-on-tag workflow).
-# ---------------------------------------------------------------------------
-
-resource "cloudflare_worker_domain" "app" {
-  account_id = var.cloudflare_account_id
-  zone_id    = var.cloudflare_zone_id
-  hostname   = local.app_domain
-  service    = var.project_name
-}
-
-# ---------------------------------------------------------------------------
 # Zero Trust Access — protect the entire app on the custom domain.
+# The Worker service and its custom domain (news.peterampazzo.com) are managed
+# outside Terraform: deployed via Wrangler in CI and configured manually in
+# the Cloudflare dashboard.
 # ---------------------------------------------------------------------------
 
 resource "cloudflare_zero_trust_access_application" "app" {
@@ -30,6 +21,4 @@ resource "cloudflare_zero_trust_access_application" "app" {
       }
     ]
   }]
-
-  depends_on = [cloudflare_worker_domain.app]
 }
